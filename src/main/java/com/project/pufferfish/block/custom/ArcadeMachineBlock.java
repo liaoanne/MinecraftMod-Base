@@ -33,16 +33,16 @@ public class ArcadeMachineBlock extends Block {
 
     // right click interaction
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos,
+    public ActionResultType use(BlockState state, World worldIn, BlockPos pos,
                                              PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         // check if we are on the server
-        if(!worldIn.isRemote()) {
-            TileEntity tileEntity = worldIn.getTileEntity(pos);
+        if(!worldIn.isClientSide()) {
+            TileEntity tileEntity = worldIn.getBlockEntity(pos);
 
             if(tileEntity instanceof ArcadeMachineTile) {
                 INamedContainerProvider containerProvider = createContainerProvider(worldIn, pos);
 
-                NetworkHooks.openGui(((ServerPlayerEntity)player), containerProvider, tileEntity.getPos());
+                NetworkHooks.openGui(((ServerPlayerEntity)player), containerProvider, tileEntity.getBlockPos());
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
             }

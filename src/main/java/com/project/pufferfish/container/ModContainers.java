@@ -21,7 +21,7 @@ public class ModContainers {
             = CONTAINERS.register("arcade_machine_container",
             () -> IForgeContainerType.create(((windowId, inv, data) -> {
                 BlockPos pos = data.readBlockPos();
-                World world = inv.player.getEntityWorld();
+                World world = inv.player.getCommandSenderWorld();
                 return new ArcadeMachineContainer(windowId, world, pos, inv, inv.player);
             })));
 

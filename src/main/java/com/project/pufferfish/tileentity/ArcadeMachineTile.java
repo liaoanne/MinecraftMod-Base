@@ -31,23 +31,23 @@ public class ArcadeMachineTile extends TileEntity {
 
     // reads the data that was changed by the tileEntity
     @Override
-    public void read (BlockState state, CompoundNBT nbt) {
+    public void load (BlockState state, CompoundNBT nbt) {
         itemHandler.deserializeNBT(serializeNBT().getCompound("inv"));
-        super.read(state, nbt);
+        super.load(state, nbt);
     }
 
     // saves the data that was changed by the tileEntity
     @Override
-    public CompoundNBT write (CompoundNBT compound) {
+    public CompoundNBT save (CompoundNBT compound) {
         compound.put("inv", itemHandler.serializeNBT());
-        return super.write(compound);
+        return super.save(compound);
     }
 
     private ItemStackHandler createHandler() {
         return new ItemStackHandler(1) {
             @Override
             protected void onContentsChanged(int slot) {
-                markDirty();
+                setChanged();
             }
 
             // checks if the items placed in the arcade machine slot are the correct items
