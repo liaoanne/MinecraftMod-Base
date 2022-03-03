@@ -32,12 +32,13 @@ public class ArcadeMachineContainer extends Container {
         // create two new slots for game token and prize ticket
         if (tileEntity != null) {
             tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-                addSlot(new SlotItemHandler(h, 0, 80, 31));
-                addSlot(new SlotItemHandler(h, 1, 80, 53));
+                addSlot(new SlotItemHandler(h,0,80,25));
             });
         }
     }
 
+    //TODO: implement check for if the user played the game and should receive a price.
+    // possibly merge with method called in ArcadeMachineTile.prizeCheck()
 //    public boolean isArcadeMachineWinner() {
 //        return;
 //    }
@@ -93,7 +94,7 @@ public class ArcadeMachineContainer extends Container {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 2;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
+    private static final int TE_INVENTORY_SLOT_COUNT = 1;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
 
     @Override
     public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {

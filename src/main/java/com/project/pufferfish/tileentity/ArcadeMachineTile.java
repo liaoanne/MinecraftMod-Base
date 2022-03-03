@@ -44,7 +44,7 @@ public class ArcadeMachineTile extends TileEntity {
     }
 
     private ItemStackHandler createHandler() {
-        return new ItemStackHandler(2) {
+        return new ItemStackHandler(1) {
             @Override
             protected void onContentsChanged(int slot) {
                 markDirty();
@@ -54,8 +54,8 @@ public class ArcadeMachineTile extends TileEntity {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 switch (slot) {
-                    case 0: return stack.getItem() == ModItems.GAME_TOKEN.get();
-                    case 1: return stack.getItem() == ModItems.PRIZE_TICKET.get();
+                    case 0: return stack.getItem() == ModItems.GAME_TOKEN.get() ||
+                            stack.getItem() == ModItems.PRIZE_TICKET.get();
                     default:
                         return false;
                 }
@@ -95,13 +95,15 @@ public class ArcadeMachineTile extends TileEntity {
     public void prizeCheck() {
         boolean hasFocusInFirstSlot = this.itemHandler.getStackInSlot(0).getCount() > 0
                 && this.itemHandler.getStackInSlot(0).getItem() == ModItems.GAME_TOKEN.get();
+        // TODO: change to boolean isArcadeMachineWinner() when implemented in ArcadeMachineContainer;
         boolean hasHighScoreForPrize = true;
-                //getScore() > ___;
 
-        // consume game token and distribute prize
-        this.itemHandler.getStackInSlot(0).shrink(1);
+        // consume game token and leave prize in the same slot
+        if (hasFocusInFirstSlot) {
+            this.itemHandler.getStackInSlot(0).shrink(1);
+        }
         if (hasFocusInFirstSlot && hasHighScoreForPrize) {
-            this.itemHandler.insertItem(1, new ItemStack(ModItems.PRIZE_TICKET.get()), false);
+            this.itemHandler.insertItem(0, new ItemStack(ModItems.PRIZE_TICKET.get()), false);
         }
     }
 }

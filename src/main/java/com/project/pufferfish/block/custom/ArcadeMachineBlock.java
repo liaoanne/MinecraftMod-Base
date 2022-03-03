@@ -39,25 +39,22 @@ public class ArcadeMachineBlock extends Block {
         if(!worldIn.isRemote()) {
             TileEntity tileEntity = worldIn.getTileEntity(pos);
 
-            if(!player.isCrouching()) {
-                if(tileEntity instanceof ArcadeMachineTile) {
-                    INamedContainerProvider containerProvider = createContainerProvider(worldIn, pos);
+            if(tileEntity instanceof ArcadeMachineTile) {
+                INamedContainerProvider containerProvider = createContainerProvider(worldIn, pos);
 
-                    NetworkHooks.openGui(((ServerPlayerEntity)player), containerProvider, tileEntity.getPos());
-                } else {
-                    throw new IllegalStateException("Our Container provider is missing!");
+                NetworkHooks.openGui(((ServerPlayerEntity)player), containerProvider, tileEntity.getPos());
+            } else {
+                throw new IllegalStateException("Our Container provider is missing!");
+            }
+
+            if (tileEntity instanceof ArcadeMachineTile) {
+                // change state if the game has been played
+                //TODO: implement a method, boolean playedGame()
+                if (true) {
+                    ((ArcadeMachineTile) tileEntity).prizeCheck();
                 }
-            } //else {
-                //if(tileEntity instanceof ArcadeMachineTile) {
-//                    // change state if the game has been played
-//                    if(worldIn.isThundering()) {
-//                        EntityType.LIGHTNING_BOLT.spawn(((ServerWorld) worldIn), null, player,
-//                                pos, SpawnReason.TRIGGERED, true, true);
-//
-//                        ((ArcadeMachineTile)tileEntity).prizeCheck();
-//                    }
-            //    }
-            //}
+            }
+
         }
         return ActionResultType.SUCCESS;
     }
