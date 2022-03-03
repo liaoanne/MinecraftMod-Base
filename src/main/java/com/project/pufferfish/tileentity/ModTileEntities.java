@@ -14,7 +14,7 @@ public class ModTileEntities {
             DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Invaders.MOD_ID);
 
     public static RegistryObject<TileEntityType<ArcadeMachineTile>> ARCADE_MACHINE_TILE =
-            TILE_ENTITIES.register("arcade_machine_tile", () -> TileEntityType.Builder.create(
+            TILE_ENTITIES.register("arcade_machine_tile", () -> TileEntityType.Builder.of(
                     ArcadeMachineTile::new, ModBlocks.ARCADE_MACHINE.get()).build(null));
 
     public static void register(IEventBus eventBus) {

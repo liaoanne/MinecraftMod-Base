@@ -23,7 +23,7 @@ public class ModBlocks {
             DeferredRegister.create(ForgeRegistries.BLOCKS, Invaders.MOD_ID);
 
     public static final RegistryObject<Block> ARCADE_MACHINE = registerBlock("arcade_machine",
-            () -> new ArcadeMachineBlock(AbstractBlock.Properties.create(Material.MISCELLANEOUS)));
+            () -> new ArcadeMachineBlock(AbstractBlock.Properties.of(Material.DECORATION)));
 
     private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
@@ -33,7 +33,7 @@ public class ModBlocks {
 
     private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
         ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
-                new Item.Properties().group(ItemGroup.MISC)));
+                new Item.Properties().tab(ItemGroup.TAB_MISC)));
     }
 
     public static void register (IEventBus eventBus) {

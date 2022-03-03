@@ -64,9 +64,9 @@ public class Invaders
 
     private void doClientStuff(final FMLClientSetupEvent event) {
         // do something that can only be done on the client
-        LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
+        LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().options);
 
-        ScreenManager.registerFactory(ModContainers.ARCADE_MACHINE_CONTAINER.get(),
+        ScreenManager.register(ModContainers.ARCADE_MACHINE_CONTAINER.get(),
                 ArcadeMachineScreen::new);
     }
 

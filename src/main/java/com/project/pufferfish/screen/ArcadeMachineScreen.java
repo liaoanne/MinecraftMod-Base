@@ -27,10 +27,10 @@ public class ArcadeMachineScreen extends ContainerScreen<ArcadeMachineContainer>
         super.init();
 
         // TODO: implement GuiScreen that will open on button click. Currently null.
-        this.addButton(new Button(this.width / 2 - 25, this.guiTop + 50, 50, 20,
+        this.addButton(new Button(this.width / 2 - 25, this.topPos + 50, 50, 20,
                 new TranslationTextComponent("PLAY"),
-                (p_213070_1_) -> {this.minecraft.displayGuiScreen((Screen)null);
-                    this.minecraft.mouseHelper.grabMouse();}
+                (p_213070_1_) -> {this.minecraft.setScreen((Screen)null);
+                    this.minecraft.mouseHandler.grabMouse();}
         ));
     }
 
@@ -38,7 +38,7 @@ public class ArcadeMachineScreen extends ContainerScreen<ArcadeMachineContainer>
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
+        this.renderTooltip(matrixStack, mouseX, mouseY);
 
         for(Widget button : buttons){
             button.render(matrixStack, mouseX, mouseY, partialTicks);
@@ -46,13 +46,13 @@ public class ArcadeMachineScreen extends ContainerScreen<ArcadeMachineContainer>
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) {
+    protected void renderBg(MatrixStack matrixStack, float partialTicks, int x, int y) {
         // draws the GUI screen
         RenderSystem.color4f(1f, 1f, 1f, 1f);
-        this.minecraft.getTextureManager().bindTexture(GUI);
-        int i = this.guiLeft;
-        int j = this.guiTop;
-        this.blit(matrixStack, i, j, 0, 0, this.xSize, this.ySize);
+        this.minecraft.getTextureManager().bind(GUI);
+        int i = this.leftPos;
+        int j = this.topPos;
+        this.blit(matrixStack, i, j, 0, 0, this.imageWidth, this.imageHeight);
 
     }
 
